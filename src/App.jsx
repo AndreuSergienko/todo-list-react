@@ -1,8 +1,15 @@
 import './App.css';
 import { Component } from 'react';
+import { Header, SearchPanel, TodoList } from './components';
 
 export class App extends Component {
 	render() {
-		return <div className="logo">Hello from React JS</div>;
+		return (
+			<div>
+				<Header />
+				<SearchPanel />
+				<TodoList />
+			</div>
+		);
 	}
 }
