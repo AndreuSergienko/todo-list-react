@@ -1,0 +1,11 @@
+.app-header {
+	display: flex;
+	align-items: flex-end;
+	gap: 20px;
+}
+
+.app-header-logo {
+	line-height: normal;
+	margin: 0;
+	padding: 0;
+}
