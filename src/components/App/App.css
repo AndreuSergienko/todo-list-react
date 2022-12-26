@@ -1,0 +1,7 @@
+.todo-app {
+	padding: 5rem 20rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
