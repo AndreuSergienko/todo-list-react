@@ -1,0 +1,32 @@
+.todo-list-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+}
+
+.todo-btn-group {
+	align-items: center;
+	gap: 10px;
+}
+
+.todo-list-item.done .todo-list-item-label {
+	color: skyblue;
+	text-decoration: line-through;
+	font-weight: 400;
+}
+
+.todo-list-item.done .btn-important {
+	background: #fff;
+	color: #000;
+}
+
+.todo-list-item.important .todo-list-item-label {
+	color: tomato;
+	font-weight: 700;
+}
+
+.todo-list-item.important .btn-important {
+	background: #dc3545;
+	color: #fff;
+}
