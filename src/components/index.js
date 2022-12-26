@@ -1,3 +1,6 @@
 export * from './Header'
 export * from './SearchPanel'
 export * from './TodoList'
+export * from './TodoListItem'
+export * from './ItemStatusFilter'
+export * from './AddItemForm'
