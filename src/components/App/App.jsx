@@ -12,26 +12,6 @@ export class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			initialTodoItems: [
-				{
-					label: "Drink Coffee",
-					isCompleted: false,
-					isImportant: false,
-					id: 1,
-				},
-				{
-					label: "Build Awesome React App",
-					isCompleted: false,
-					isImportant: false,
-					id: 2,
-				},
-				{
-					label: "Go to sleep",
-					isCompleted: false,
-					isImportant: false,
-					id: 3,
-				},
-			],
 			todoItems: [
 				{
 					label: "Drink Coffee",
@@ -52,6 +32,8 @@ export class App extends Component {
 					id: 3,
 				},
 			],
+			term: "",
+			filterBy: "all",
 		};
 	}
 
@@ -64,14 +46,14 @@ export class App extends Component {
 		});
 	};
 
-	onAdd = (label) => {
+	onAdd = (value) => {
 		this.setState((state) => {
 			return {
 				...state,
 				todoItems: [
 					...state.todoItems,
 					{
-						label,
+						label: value,
 						id: state.todoItems.length + 1,
 					},
 				],
@@ -92,18 +74,49 @@ export class App extends Component {
 		});
 	};
 
-	onSearch = ({ target: { value } }) => {
-		this.setState(({ initialTodoItems, ...others }) => {
+	onFilter = (todoItems, filterBy) => {
+		switch (filterBy) {
+			case "active":
+				return todoItems.filter((item) => !item.isCompleted);
+			case "completed":
+				return todoItems.filter((item) => item.isCompleted);
+			default:
+				return todoItems;
+		}
+	};
+
+	onSearchChange = (term) => {
+		this.setState((state) => {
 			return {
-				...others,
-				todoItems: initialTodoItems.filter(({ label }) =>
-					label.toLowerCase().includes(value.toLowerCase())
-				),
+				...state,
+				term,
 			};
 		});
 	};
 
+	onFilterChange = (filterBy) => {
+		this.setState((state) => {
+			return {
+				...state,
+				filterBy,
+			};
+		});
+	};
+
+	onSearch = (todoItems, term) => {
+		if (!term.length) return todoItems;
+		return todoItems.filter((item) => {
+			return item.label.toLowerCase().includes(term.toLowerCase());
+		});
+	};
+
 	render() {
+		const { todoItems, filterBy, term } = this.state;
+		const displayItems = this.onFilter(
+			this.onSearch(todoItems, term),
+			filterBy
+		);
+
 		return (
 			<div className="todo-app">
 				<Header
@@ -111,15 +124,18 @@ export class App extends Component {
 					done={this.state.todoItems.filter((item) => item.isCompleted).length}
 				/>
 				<div className="d-flex gap-3">
-					<SearchPanel onSearch={this.onSearch} />
-					<ItemStatusFilter />
+					<SearchPanel onSearchChange={this.onSearchChange} />
+					<ItemStatusFilter
+						activeFilter={filterBy}
+						onFilterChange={this.onFilterChange}
+					/>
 				</div>
 				<TodoList
-					todoItems={this.state.todoItems}
+					todoItems={displayItems}
 					onDelete={this.onDelete}
 					onToggleControl={this.onToggleControl}
 				/>
-				<AddItemForm onAdd={(label) => this.onAdd(label)} />
+				<AddItemForm onAdd={this.onAdd} />
 			</div>
 		);
 	}
