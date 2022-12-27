@@ -44,14 +44,14 @@ export class App extends Component {
 		});
 	};
 
-	onAdd = () => {
+	onAdd = (label) => {
 		this.setState((state) => {
 			return {
 				...state,
 				todoItems: [
 					...state.todoItems,
 					{
-						label: "New Item",
+						label,
 						id: state.todoItems.length + 1,
 					},
 				],
@@ -88,7 +88,7 @@ export class App extends Component {
 					onDelete={this.onDelete}
 					onToggleControl={this.onToggleControl}
 				/>
-				<AddItemForm onAdd={() => this.onAdd()} />
+				<AddItemForm onAdd={(label) => this.onAdd(label)} />
 			</div>
 		);
 	}
