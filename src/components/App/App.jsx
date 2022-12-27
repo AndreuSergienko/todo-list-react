@@ -12,6 +12,26 @@ export class App extends Component {
 	constructor() {
 		super();
 		this.state = {
+			initialTodoItems: [
+				{
+					label: "Drink Coffee",
+					isCompleted: false,
+					isImportant: false,
+					id: 1,
+				},
+				{
+					label: "Build Awesome React App",
+					isCompleted: false,
+					isImportant: false,
+					id: 2,
+				},
+				{
+					label: "Go to sleep",
+					isCompleted: false,
+					isImportant: false,
+					id: 3,
+				},
+			],
 			todoItems: [
 				{
 					label: "Drink Coffee",
@@ -72,6 +92,17 @@ export class App extends Component {
 		});
 	};
 
+	onSearch = ({ target: { value } }) => {
+		this.setState(({ initialTodoItems, ...others }) => {
+			return {
+				...others,
+				todoItems: initialTodoItems.filter(({ label }) =>
+					label.toLowerCase().includes(value.toLowerCase())
+				),
+			};
+		});
+	};
+
 	render() {
 		return (
 			<div className="todo-app">
@@ -80,7 +111,7 @@ export class App extends Component {
 					done={this.state.todoItems.filter((item) => item.isCompleted).length}
 				/>
 				<div className="d-flex gap-3">
-					<SearchPanel />
+					<SearchPanel onSearch={this.onSearch} />
 					<ItemStatusFilter />
 				</div>
 				<TodoList
