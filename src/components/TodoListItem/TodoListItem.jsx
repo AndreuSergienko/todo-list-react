@@ -3,14 +3,8 @@ import "./TodoListItem.css";
 
 export class TodoListItem extends Component {
 	render() {
-		const {
-			label,
-			onToggleCompleted,
-			onToggleImportant,
-			onDelete,
-			isImportant,
-			isCompleted,
-		} = this.props;
+		const { label, onToggleControl, onDelete, isImportant, isCompleted } =
+			this.props;
 
 		return (
 			<span
@@ -19,7 +13,7 @@ export class TodoListItem extends Component {
 			>
 				<span
 					className="todo-list-item-label"
-					onClick={onToggleCompleted}
+					onClick={() => onToggleControl("isCompleted")}
 				>
 					{label}
 				</span>
@@ -36,7 +30,7 @@ export class TodoListItem extends Component {
 					<button
 						type="button"
 						className="btn btn-outline-danger btn-sm btn-important"
-						onClick={onToggleImportant}
+						onClick={() => onToggleControl("isImportant")}
 					>
 						<i className="bi bi-exclamation"></i>
 					</button>

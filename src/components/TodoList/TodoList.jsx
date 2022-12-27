@@ -17,8 +17,9 @@ export class TodoList extends Component {
 							<TodoListItem
 								{...itemOthers}
 								onDelete={() => this.props.onDelete(id)}
-								onToggleCompleted={() => this.props.onToggleCompleted(id)}
-								onToggleImportant={() => this.props.onToggleImportant(id)}
+								onToggleControl={(propName) =>
+									this.props.onToggleControl(id, propName)
+								}
 							/>
 						</li>
 					);
