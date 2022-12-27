@@ -5,11 +5,11 @@
 	min-width: 150px;
 	padding: 10px 0;
 	border-radius: 10px;
-	border: none;
+	border: 1px solid #ccc;
 	transition: 0.2s;
 }
 
 .add-item-form-button:hover {
-	background: tomato;
-	color: skyblue;
+	background: transparent;
+	border-color: #000;
 }
