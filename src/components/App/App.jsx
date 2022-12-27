@@ -59,27 +59,14 @@ export class App extends Component {
 		});
 	};
 
-	onToggleCompleted = (id) => {
+	onToggleControl = (id, propName) => {
 		this.setState((state) => {
 			const currId = state.todoItems.findIndex((item) => item.id === id);
 			return {
 				...state,
 				todoItems: state.todoItems.map((item, index) => ({
 					...item,
-					isCompleted: index === currId ? !item.isCompleted : item.isCompleted,
-				})),
-			};
-		});
-	};
-
-	onToggleImportant = (id) => {
-		this.setState((state) => {
-			const currId = state.todoItems.findIndex((item) => item.id === id);
-			return {
-				...state,
-				todoItems: state.todoItems.map((item, index) => ({
-					...item,
-					isImportant: index === currId ? !item.isImportant : item.isImportant,
+					[propName]: index === currId ? !item[propName] : item[propName],
 				})),
 			};
 		});
@@ -99,8 +86,7 @@ export class App extends Component {
 				<TodoList
 					todoItems={this.state.todoItems}
 					onDelete={this.onDelete}
-					onToggleCompleted={this.onToggleCompleted}
-					onToggleImportant={this.onToggleImportant}
+					onToggleControl={this.onToggleControl}
 				/>
 				<AddItemForm onAdd={() => this.onAdd()} />
 			</div>
